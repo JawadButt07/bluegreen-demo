@@ -41,7 +41,8 @@ jobs:
         uses: aws-actions/amazon-ecr-login@v2
 
       - name: Build and push image
+        env:
+          IMAGE: ${{ steps.ecr.outputs.registry }}/${{ env.ECR_REPO }}:${{ env.IMAGE_TAG }}
         run: |
-          IMAGE=${{ steps.ecr.outputs.registry }}/${{ env.ECR_REPO }}:${{ env.IMAGE_TAG }}
-          docker build -t $IMAGE .
-          docker push $IMAGEgit 
+          docker build -t "$IMAGE" .
+          docker push "$IMAGE" 
