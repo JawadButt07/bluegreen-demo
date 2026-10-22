@@ -1,2 +1,251 @@
-<html><body style="background:#2da44e;color:white;font-family:sans-serif;text-align:center;padding-top:20%">
-<h1>Version 2 - GREEN</h1></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Algtes Gym</title>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;600;800;900&family=Archivo+Narrow:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#dfe2e3;--surface:#eef0f0;--ink:#14213d;--muted:#4b5668;--accent:#d62839;--accent-ink:#fff;--line:#b9bfc4;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#12161c;--surface:#1b212a;--ink:#e8ecf0;--muted:#9aa6b5;--accent:#ff4d5e;--accent-ink:#12161c;--line:#2d3642;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#12161c;--surface:#1b212a;--ink:#e8ecf0;--muted:#9aa6b5;--accent:#ff4d5e;--accent-ink:#12161c;--line:#2d3642;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:'Archivo',system-ui,sans-serif;line-height:1.55}
+h1,h2,h3{font-family:'Archivo',system-ui,sans-serif;margin:0;line-height:1}
+h1{font-weight:900;font-size:clamp(3rem,10vw,7.5rem);letter-spacing:-.04em}
+h2{font-weight:800;font-size:clamp(1.8rem,4vw,2.8rem);letter-spacing:-.03em;margin-bottom:1.5rem}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1100px;margin:0 auto;padding:0 20px}
+nav{display:flex;justify-content:space-between;align-items:center;padding:18px 0;font-family:'Archivo Narrow',sans-serif;font-weight:700}
+nav .links{display:flex;gap:22px;align-items:center}
+nav a{text-decoration:none}
+.logo{font-family:'Archivo',sans-serif;font-weight:900;font-size:1.3rem;letter-spacing:-.03em}
+.btn{background:var(--accent);color:var(--accent-ink);border:0;padding:12px 22px;font-weight:800;cursor:pointer;border-radius:4px;text-decoration:none;display:inline-block}
+.btn.ghost{background:transparent;color:var(--ink);border:2px solid var(--ink)}
+.btn:hover{filter:brightness(1.08)}
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:40px;align-items:center;padding:40px 0 70px}
+.hero p{font-size:1.15rem;color:var(--muted);max-width:44ch;margin:20px 0 28px}
+.calc{background:var(--surface);border:2px solid var(--ink);border-radius:6px;padding:22px}
+.calc label{font-family:'Archivo Narrow',sans-serif;font-weight:700;display:block;margin-bottom:6px}
+.calc input{width:100%;font-size:2rem;font-weight:800;background:transparent;border:0;border-bottom:3px solid var(--ink);padding:4px 0}
+.bar{display:flex;align-items:center;height:190px;margin:22px 0 10px;overflow:hidden}
+.shaft{height:12px;background:var(--muted);flex:1;min-width:30px}
+.sleeve{height:22px;width:26px;background:var(--muted)}
+.plate{width:14px;margin-right:2px;border-radius:2px;flex:none;transition:height .25s}
+.plates{font-family:'Archivo Narrow',sans-serif;font-weight:700;min-height:3em}
+.note{color:var(--muted);font-size:.9rem;margin-top:8px}
+section{padding:60px 0;border-top:2px solid var(--ink)}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.tab{background:transparent;border:2px solid var(--line);padding:8px 16px;cursor:pointer;border-radius:4px;font-weight:600}
+.tab[aria-selected="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.row{display:grid;grid-template-columns:90px 1fr auto auto;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line)}
+.row .t{font-family:'Archivo Narrow',sans-serif;font-weight:700;font-size:1.2rem}
+.row small{color:var(--muted);display:block}
+.spots{font-weight:600;font-size:.9rem}
+.spots.low{color:var(--accent)}
+.btn.booked{background:var(--ink);color:var(--bg)}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+.toggle{display:inline-flex;border:2px solid var(--ink);border-radius:4px;margin-bottom:24px;overflow:hidden}
+.toggle button{background:transparent;border:0;padding:8px 18px;cursor:pointer;font-weight:700}
+.toggle button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.plan{background:var(--surface);border:2px solid var(--line);padding:24px;border-radius:6px;display:flex;flex-direction:column;gap:12px}
+.plan.pick{border-color:var(--accent);border-width:3px}
+.price{font-size:2.6rem;font-weight:900;letter-spacing:-.04em}
+.price span{font-size:1rem;font-weight:600;color:var(--muted);letter-spacing:0}
+.plan ul{padding-left:18px;margin:0;color:var(--muted);flex:1}
+.hours{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:30px}
+form{display:grid;gap:14px;max-width:460px}
+form input,form select{padding:12px;border:2px solid var(--ink);background:var(--surface);border-radius:4px}
+.ok{padding:16px;border:2px solid var(--accent);border-radius:4px;font-weight:600}
+footer{padding:30px 0 50px;color:var(--muted);border-top:2px solid var(--ink)}
+@media (max-width:760px){
+.hero{grid-template-columns:1fr;padding-top:10px}
+.plans{grid-template-columns:1fr}
+.row{grid-template-columns:70px 1fr;}
+.row .spots,.row .btn{grid-column:2}
+nav .links a.hide{display:none}
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/babel-standalone/7.23.9/babel.min.js"></script>
+<script type="text/babel">
+const { useState, useMemo } = React;
+const GYM = "Algtes Gym";
+
+const CLASSES = {
+  Mon: [["6:00 AM","Barbell Basics","Coach Sara",12,4],["12:30 PM","HIIT 30","Coach Ali",20,9],["6:30 PM","Powerlifting","Coach Zain",10,1]],
+  Tue: [["7:00 AM","Mobility Flow","Coach Hina",15,6],["5:30 PM","Spin","Coach Ali",18,12],["7:00 PM","Boxing Fit","Coach Omar",14,3]],
+  Wed: [["6:00 AM","Barbell Basics","Coach Sara",12,8],["12:30 PM","Core & Abs","Coach Hina",20,11],["6:30 PM","HIIT 30","Coach Ali",20,2]],
+  Thu: [["7:00 AM","Kettlebell","Coach Zain",12,5],["5:30 PM","Spin","Coach Ali",18,7],["7:00 PM","Boxing Fit","Coach Omar",14,0]],
+  Fri: [["6:00 AM","Powerlifting","Coach Zain",10,6],["12:30 PM","HIIT 30","Coach Ali",20,14],["6:00 PM","Mobility Flow","Coach Hina",15,10]],
+  Sat: [["9:00 AM","Team Circuit","Coach Sara",24,10],["11:00 AM","Kettlebell","Coach Zain",12,7]],
+  Sun: [["10:00 AM","Open Yoga","Coach Hina",20,15]],
+};
+
+const PLANS = [
+  {name:"Day Pass", m:6, y:6, per:"/ visit", items:["Full gym floor","Locker room","No commitment"]},
+  {name:"Standard", m:35, y:29, per:"/ month", pick:true, items:["Unlimited gym access","All group classes","Free orientation session"]},
+  {name:"Coached", m:79, y:69, per:"/ month", items:["Everything in Standard","2 personal sessions monthly","Custom training plan"]},
+];
+
+const PLATES = [[25,"#d62839",190],[20,"#2563eb",170],[15,"#d9a400",150],[10,"#16a34a",120],[5,"#e5e7eb",90],[2.5,"#111827",70],[1.25,"#9ca3af",55]];
+
+function Calc(){
+  const [target,setTarget] = useState(100);
+  const bar = 20;
+  const res = useMemo(()=>{
+    let side = (Number(target)-bar)/2;
+    if(isNaN(side) || side < 0) return null;
+    const out=[];
+    for(const [w,c,h] of PLATES){
+      while(side >= w - 1e-9){ out.push([w,c,h]); side -= w; }
+    }
+    return {out, left: side*2};
+  },[target]);
+  const counts = res ? res.out.reduce((a,[w])=>{a[w]=(a[w]||0)+1;return a;},{}) : {};
+  return (
+    <div className="calc">
+      <label htmlFor="kg">Target weight (kg)</label>
+      <input id="kg" type="number" inputMode="decimal" min="20" step="2.5" value={target} onChange={e=>setTarget(e.target.value)} />
+      <div className="bar" aria-hidden="true">
+        <div className="shaft"></div><div className="sleeve"></div>
+        {res && res.out.map(([w,c,h],i)=>(<div key={i} className="plate" style={{height:h,background:c}} />))}
+        <div className="sleeve" style={{width:16}}></div>
+      </div>
+      <div className="plates" aria-live="polite">
+        {!res ? "Enter 20 kg or more (the bar weighs 20 kg)." :
+          Object.keys(counts).sort((a,b)=>b-a).map(w=>`${counts[w]} × ${w} kg`).join("  ·  ") || "Empty bar"}
+      </div>
+      <div className="note">{res ? `Per side, on a 20 kg bar.${res.left>0.01?` Closest loadable: ${Number(target)-res.left} kg.`:""}` : ""}</div>
+    </div>
+  );
+}
+
+function Schedule(){
+  const days = Object.keys(CLASSES);
+  const today = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"][new Date().getDay()];
+  const [day,setDay] = useState(today);
+  const [booked,setBooked] = useState({});
+  const toggle = k => setBooked(b=>({...b,[k]:!b[k]}));
+  return (
+    <section id="classes">
+      <div className="wrap">
+        <h2>Class schedule</h2>
+        <div className="tabs" role="tablist">
+          {days.map(d=>(<button key={d} role="tab" aria-selected={d===day} className="tab" onClick={()=>setDay(d)}>{d}</button>))}
+        </div>
+        {CLASSES[day].map(([time,name,coach,cap,taken],i)=>{
+          const key = day+i; const isB = booked[key];
+          const left = cap - taken - (isB?1:0);
+          return (
+            <div className="row" key={key}>
+              <div className="t">{time}</div>
+              <div><strong>{name}</strong><small>{coach}</small></div>
+              <div className={"spots"+(left<=3?" low":"")}>{left<=0 && !isB ? "Full" : `${left} spot${left===1?"":"s"} left`}</div>
+              <button className={"btn"+(isB?" booked":"")} disabled={left<=0 && !isB} onClick={()=>toggle(key)}>{isB?"Cancel booking":"Book class"}</button>
+            </div>
+          );
+        })}
+      </div>
+    </section>
+  );
+}
+
+function Plans(){
+  const [yearly,setYearly] = useState(false);
+  return (
+    <section id="plans">
+      <div className="wrap">
+        <h2>Membership plans</h2>
+        <div className="toggle">
+          <button aria-pressed={!yearly} onClick={()=>setYearly(false)}>Monthly</button>
+          <button aria-pressed={yearly} onClick={()=>setYearly(true)}>Yearly (save up to 17%)</button>
+        </div>
+        <div className="plans">
+          {PLANS.map(p=>(
+            <div key={p.name} className={"plan"+(p.pick?" pick":"")}>
+              <h3>{p.name}</h3>
+              <div className="price">${yearly?p.y:p.m}<span> {p.per}</span></div>
+              <ul>{p.items.map(x=><li key={x}>{x}</li>)}</ul>
+              <a className={"btn"+(p.pick?"":" ghost")} href="#join">Choose {p.name}</a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Join(){
+  const [sent,setSent] = useState(null);
+  const [f,setF] = useState({name:"",email:"",plan:"Standard"});
+  const submit = e => { e.preventDefault(); if(f.name && /\S+@\S+\.\S+/.test(f.email)) setSent(f); };
+  return (
+    <section id="join">
+      <div className="wrap">
+        <h2>Book a free tour</h2>
+        {sent ? <div className="ok" role="status">Thanks, {sent.name}. We'll email {sent.email} to confirm your tour for the {sent.plan} plan.</div> :
+        <form onSubmit={submit} noValidate>
+          <input aria-label="Full name" placeholder="Full name" value={f.name} onChange={e=>setF({...f,name:e.target.value})} required />
+          <input aria-label="Email" type="email" placeholder="Email" value={f.email} onChange={e=>setF({...f,email:e.target.value})} required />
+          <select aria-label="Plan" value={f.plan} onChange={e=>setF({...f,plan:e.target.value})}>
+            {PLANS.map(p=><option key={p.name}>{p.name}</option>)}
+          </select>
+          <button className="btn" type="submit">Book my tour</button>
+        </form>}
+      </div>
+    </section>
+  );
+}
+
+function App(){
+  return (
+    <>
+      <div className="wrap">
+        <nav>
+          <span className="logo">{GYM}</span>
+          <div className="links">
+            <a className="hide" href="#classes">Classes</a>
+            <a className="hide" href="#plans">Plans</a>
+            <a className="btn" href="#join">Join</a>
+          </div>
+        </nav>
+        <header className="hero">
+          <div>
+            <h1>Load the bar. Lift.</h1>
+            <p>Open 5 AM to 11 PM. Free weights, group classes and coaches who learn your name. Not sure what to put on the bar? Try the plate calculator.</p>
+            <a className="btn" href="#join">Book a free tour</a>
+          </div>
+          <Calc />
+        </header>
+      </div>
+      <Schedule />
+      <Plans />
+      <section>
+        <div className="wrap">
+          <h2>Hours</h2>
+          <div className="hours">
+            <div><strong>Mon – Fri</strong><br/>5:00 AM – 11:00 PM</div>
+            <div><strong>Saturday</strong><br/>7:00 AM – 9:00 PM</div>
+            <div><strong>Sunday</strong><br/>8:00 AM – 6:00 PM</div>
+          </div>
+        </div>
+      </section>
+      <Join />
+      <footer><div className="wrap">© {new Date().getFullYear()} {GYM}. All rights reserved.</div></footer>
+    </>
+  );
+}
+ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+</script>
+</body>
+</html>
